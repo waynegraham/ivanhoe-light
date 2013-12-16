@@ -248,6 +248,17 @@ function gravatar_url($email, $size=70)
 ```
 
 Now to add this to the page, we'll integrate this in to the `moves` we
-just displayed on the page:
+just displayed on the page. In the `meta` class we just added, add an
+image with a URL set to the `gravatar_url` method:
 
+```php
+ <img src="<?php echo gravatar_url($row['email']); ?>" alt="Gravatar"/>
+```
 
+Now if you refresh the page, you should see gravatar images next to each
+move.
+
+## Style
+Now we have access to data to do all kinds of different things in
+JavaScript and in the text, however, it right now it doesn't look very
+good. Let's fix that with a bit of styling in CSS. 

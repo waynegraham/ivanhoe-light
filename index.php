@@ -64,7 +64,7 @@ $connection->close();
     </ul>
   </nav>
 
-  <main role="main">
+  <main role="main" id="main">
     <h1>Ivanhoe Light</h1>
 
     <div id="moves">
@@ -94,7 +94,6 @@ $connection->close();
 
 
       <div class="field">
-        <label for="move">Move:</label>
         <textarea name="move" rows="10" cols="40" placeholder="Your move..." required="true"></textarea>
       </div>
 
