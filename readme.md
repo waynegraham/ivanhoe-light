@@ -261,4 +261,231 @@ move.
 ## Style
 Now we have access to data to do all kinds of different things in
 JavaScript and in the text, however, it right now it doesn't look very
-good. Let's fix that with a bit of styling in CSS. 
+good. Let's fix that with a bit of styling in CSS.
+
+The first thing we want to do is style some of the major HTML blocks
+we've defined in the code, moving the content in to the center of the
+page, giving it a background color, and a better font.
+
+```css
+html {
+  background: #fffddd;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0 auto;
+  width: 900px;
+  color: #444;
+}
+
+a:link { color: #700; }
+a:visited { color: #b00; }
+a:hover { color: #b00; text-decoration: none; }
+a:active { color: #500; }
+
+nav {
+  display: block;
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #777;
+}
+
+nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+nav li {
+  display: inline;
+}
+
+nav li + li:before {
+  content: " · ";
+  color: #ccc;
+}
+
+```
+
+It's starting to look like something! Now a few styles for the
+notification messages we created. This will create red/green boxes with
+rounded edges to display when a move has been made:
+
+```css
+p.error {
+  color: #a94442;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+p.success {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: 1px solid #d6e9c6;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+```
+
+Awesome, now let's work on styling the moves. Basically what we want to
+do here is put the image on the left, with the content of the move on
+the right, styling the list items to not display the circle:
+
+```css
+#moves ul {
+  margin-left: 0;
+  margin-bottom: 15px;
+}
+
+#moves li {
+  list-style: none;
+  clear: both;
+  padding-top: 30px;
+}
+
+#moves li:first-child {
+  padding-top: 0;
+}
+
+.meta {
+  width: 85px;
+  min-height: 110px;
+  font-weight: bold;
+  float: left;<D-r>
+}
+
+.meta img {
+  padding: 5px;
+  background-color: #313d60;
+}
+
+.meta p {
+  padding-top: 5px;
+  float: left;
+}
+
+.move {
+  width: 700px;
+  margin-left: 110px;
+}
+```
+
+This styles the moves list to remove the circules, then styles the
+`meta` image and name, then sets the `move` content to `700px` to fill
+out the page.
+
+But that form is still a little gross looking. Let's fix that by making
+the text input larger, and adding some visual queues for which field the
+user is in. We'll use some browser-specfici extensions, as well as
+advanced selectors. 
+
+```css
+form {
+  clear: both;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input:not([type='submit']) {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  margin: 6px 0 0 0;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+input[type='submit'] {
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  color: #333;
+  background-color: #fff;
+  border-color: #adadad;
+  text-decoration: none;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+```
+
+Looking good, but let's give the footer some love:
+
+```css
+footer {
+  padding: 30px 0;
+  display: block;
+}
+```
+
+Hey, it looks like something now!
+
+## Summary
+
+So this very brief tutorial worked through developing a simple PHP
+application that stores information in a database, and styling the
+results.
+
+# Going Further
+
+* Make this design better with your own CSS
+* Add a WSYIWYG editor to the **Moves** field
+* Change the application to allow moves on a move
+  * What needs to change in the design of the page?
+  * What needs to change in the database?
+  * How do you tell your application which form you're talking about?
+* What are other features you could add?
+* How could you use the same data to produce a different visualization
+  of the data? 
