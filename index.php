@@ -56,13 +56,14 @@ $connection->close();
   <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
-
-  <nav>
-    <ul>
-      <li><a href="http://yoursite.com">[your name]</a></li>
-      <li><a href="http://scholarslab.org">Scholars' Lab</a></li>
-    </ul>
-  </nav>
+  <header role="banner">
+    <nav>
+      <ul>
+        <li><a href="http://yoursite.com">[your name]</a></li>
+        <li><a href="http://scholarslab.org">Scholars' Lab</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main role="main" id="main">
     <h1>Ivanhoe Light</h1>
@@ -94,6 +95,7 @@ $connection->close();
 
 
       <div class="field">
+        <label for="move">Move:</label>
         <textarea name="move" rows="10" cols="40" placeholder="Your move..." required="true"></textarea>
       </div>
 
@@ -102,7 +104,7 @@ $connection->close();
   </main>
 
   <footer>
-  
-  </footer>
+  &nbsp;  some footer stuff
+</footer>
 </body>
 </html>
