@@ -78,13 +78,20 @@ of `root` with a blank password (unless you've changed that). However,
 
 ## Application
 
-We need a few files for this application. We'll have a main `index.php`
+Ok, so we're done with phpMyAdmin. Now we need to actually create an
+application to interact with the database. Create a new directory in
+your MAMP/WAMP `htdocs` directory named `ivanhoe`.
+
+* MAMP: `cd /Applications/MAMP/htdocs && mkdir -p ivanhoe`
+* WAMP: `cd C:/WAMP/htdocs && mkdir -p ivanhoe`
+
+For this application, we need to set up a few initial files and
+initialize a git repository. We'll have a main `index.php`
 file, a `style.css` file, and a file to store our database connection
-information (`db.php`). 
+information (`db.php`). Assuming you are already in your MAMP/WAMP
+`ivanhoe` directory, do the following:
 
 ```shell
-$ mkdir ~/projects/ivanhoe-light
-$ cd ~/projects/ivanhoe-light
 $ touch {index.php, style.css, db.php}
 $ git init
 $ git add .
@@ -93,16 +100,26 @@ $ git commit -am "Initial files for Ivanhoe-light game"
 
 ### Database Connection
 
-We need to tell our application how to connect to our database. Edit the
-`db.php` file with your credentials to connect to your database:
+Right now if you look at your application in your browser
+(http://localhost:8888/ivanhoe or http://localhost/ivanhoe), you will
+only see a blank page. Your application doesn't know anything about the
+database, or what to do with it, so let's fix that. The first thing
+we'll do is create some PHP variables to store information about how to
+connect to the MySQL database you just created.
+
+ Edit your`db.php` file with the credentials to connect to your database:
 
 ```php
 <?php
   $host = 'localhost';
   $username = 'root';
   $password = '';
-  $database = 'ivanhoe'; // the database you created in phpMyAdmin
+  $database = 'ivanhoe'; // or the database you created in phpMyAdmin
 ```
+
+If you refresh the web page now, you'll still now see anything. All
+we've done here is create a file that we can store the information about
+connecting to the database that we can use in the application.
 
 # Step 2: Some Code
 
