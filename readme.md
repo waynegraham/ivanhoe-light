@@ -244,7 +244,6 @@ element (after the `<h1>` heading), add the following form:
     <input type="email" id="email" name="email" placeholder="Your email address..." required="true" />
   </div>
 
-
   <div class="field">
     <label for="move">Move:</label>
     <textarea name="move" rows="10" cols="40" placeholder="Your move..." required="true"></textarea>
@@ -353,10 +352,32 @@ past the moves. So, before the `form` element on the page, add this:
 </div>
 ```
 
-Sweet, now we've got the data set, but let's tie the post to a user's
-gravatar image. For this we'll write a new function (at the top of the
-file) to generate the gravatar image URL based on the move's email
-address:
+This uses a `while` loop that will loop over the `$moves` while there
+are elements in the array. Each row of data is then stored as an array
+of data in the variable `$row`.
+
+If you look at the application in the browser, you should have something
+that looks like this:
+
+![unstyled application](images/entries.png)
+
+Now that you have a new feature working, it's another good time to stop and commit these changes with `git`. If
+you didn't read [Tim Pope's][messages] article earlier, you should *really* go read
+that.
+
+
+### Getting Fancy
+
+You know, one nice little feature to have would to actually use the
+Gravatar service to display an image next to the user's move. Gravatar
+uses a `hash` of the user's email address to return the image, so we'll
+need to write a function that can help us create the URL for the image.
+
+For this function, we need to take a image (and an optional size to make
+this more flexible), and remove any whitespace that may be in the
+string, make sure it's lower-case, and run it through a hash function
+using the md5 algorithm. At the top of the `index.php` page, add the
+following function (under the `include_once` line):
 
 ```php
 function gravatar_url($email, $size=70)
@@ -367,21 +388,27 @@ function gravatar_url($email, $size=70)
 }
 ```
 
-Now to add this to the page, we'll integrate this in to the `moves` we
-just displayed on the page. In the `meta` class we just added, add an
+We can now use this in the `while` loop we made earlier to create a link
+to the user's gravatar image. In the `meta` class we just added, add an
 image with a URL set to the `gravatar_url` method:
 
 ```php
- <img src="<?php echo gravatar_url($row['email']); ?>" alt="Gravatar"/>
+<div class="meta">
+  <img src="<?php echo gravatar_url($row['email']); ?>" alt="Gravatar"/>
+  <p><?php echo $row['name']; ?></p>
+</div>
 ```
 
 Now if you refresh the page, you should see gravatar images next to each
 move.
 
+![application with gravatars](images/gravatars.png)
+
 ## Style
-Now we have access to data to do all kinds of different things in
-JavaScript and in the text, however, it right now it doesn't look very
-good. Let's fix that with a bit of styling in CSS.
+
+We have a really solid base now to start working with, but right now we
+just have the default styles that the browser applies. We can do a lot
+better. Let's fix this to look better with a bit of styling in CSS.
 
 The first thing we want to do is style some of the major HTML blocks
 we've defined in the code, moving the content in to the center of the
@@ -428,8 +455,12 @@ nav li + li:before {
   content: " · ";
   color: #ccc;
 }
-
 ```
+
+When you refresh the page now, you should see something that looks like
+this:
+
+![initial style](images/css1.png)
 
 It's starting to look like something! Now a few styles for the
 notification messages we created. This will create red/green boxes with
