@@ -98,7 +98,15 @@ $ git add .
 $ git commit -am "Initial files for Ivanhoe-light game"
 ```
 
-### Database Connection
+# Step 2: Some Code
+
+Now that the database is set up, and a git repository exists for your
+code changes, it's time to start developing the application. I've broken
+this up in to two separate files, `db.php` will store the connection
+details to the database for the application, and `index.php` will handle
+the actual logic of the application.
+
+## Database Connection
 
 Right now if you look at your application in your browser
 (http://localhost:8888/ivanhoe or http://localhost/ivanhoe), you will
@@ -107,7 +115,7 @@ database, or what to do with it, so let's fix that. The first thing
 we'll do is create some PHP variables to store information about how to
 connect to the MySQL database you just created.
 
- Edit your`db.php` file with the credentials to connect to your database:
+Edit your`db.php` file with the credentials to connect to your database:
 
 ```php
 <?php
@@ -117,15 +125,20 @@ connect to the MySQL database you just created.
   $database = 'ivanhoe'; // or the database you created in phpMyAdmin
 ```
 
+<blockquote>You may have noticed I left off the ending `?>` for the PHP
+block in this file. This is on purpose as it helps prevent certain kinds
+of security vulnerabilities.</blockquote>
+
 If you refresh the web page now, you'll still now see anything. All
 we've done here is create a file that we can store the information about
-connecting to the database that we can use in the application.
+connecting to the database that we can use in the application. Now we
+can start building out the web page to start adding functionality.
 
-# Step 2: Some Code
+## Application Code
 
 The `index.php` file will contain all of the code for the application,
-but we need an initial HTML template to display. We'll use this as the
-basis of our application for now:
+including how the data if presented. To handle this presentation, we
+need some HTML. Open the `index.php` file and add the following:
 
 ```html
 <!DOCTYPE html>
@@ -138,15 +151,16 @@ basis of our application for now:
   <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
+  <header role="banner">
+    <nav>
+      <ul>
+        <li><a href="http://yoursite.com">[your name]</a></li>
+        <li><a href="http://scholarslab.org">Scholars' Lab</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <nav>
-    <ul>
-      <li><a href="http://yoursite.com">[your name]</a></li>
-      <li><a href="http://scholarslab.org">Scholars' Lab</a></li>
-    </ul>
-  </nav>
-
-  <main role="main">
+  <main role="main" id="main">
     <h1>Ivanhoe Light</h1>
   </main>
 
@@ -157,18 +171,23 @@ basis of our application for now:
 </html>
 ```
 
+If you refresh your page now, you should see something very exciting:
+
+![basic markup](images/blank-page.png)
+
+Now we just need the application to start doing some work!
+
 ## Working With the Database
 
-Before you can do anything with the database, you have to be able to
-connect to it with PHP. We'll need to tell our script about this at the
-top of the `index.php` file:
+Right now our application doesn't know anything about the database we
+created for it. The first thing we need to do is include the `db.php`
+file with the connection information in it, then tell PHP how to connect
+to the database. In the `index.php` file, add the following at the top
+of the file (before the `<!DOCTYPE html>` line:
 
 ```php
 <?php
 include_once('db.php');
-
-$self = $_SERVER['PHP_SELF']; // this file
-$ipaddress = ("$_SERVER[REMOTE_ADDR]"); // the user's IP
 
 $connection = mysqli_connect(
   $host,
@@ -180,18 +199,36 @@ $connection = mysqli_connect(
 ?>
 ```
 
-The first line incluedes the database variables we set in `db.php`. The
-next lines get the name of the file (`index.php`) and retrieves the
-user's IP address, which we will use later on. While we could just as
-easily set the variables for connecting to the database in `index.php`,
-it is a best practice to keep the connection credentials separate from
-the actual application code.
+If you refresh the page now, and everything is working properly, it will
+still look the same. All this bit of code did was include the `db.php`
+file, and create a connection to the database system using the
+[mysqli][mysqli] extension. If PHP cannot establish a connection to the
+database server, it will generate a warning message and exit (`die`) the
+connection.
 
-The `$connection` stores the actual connection to the MySQL server. If
-it cannot make the connection, it will "hang up" and display an error
-message.
+Let's add a couple more lines that we can use later. Remember that we
+have an entry in the database for the IP address for the user? We can
+get that from the [$_SERVER][successglobal] super global with the `REMOTE_ADDRESS` variable. We
+also also to keep track of the actual page we're on, which we can look
+up with the `PHP_SELF` variable.
+
+
+```php
+$self = $_SERVER['PHP_SELF']; // this file
+$ipaddress = ("$_SERVER[REMOTE_ADDR]"); // the user's IP
+```
+
+Now is a good time to create a good commit in git. This is also a good
+time to read Tim Pope's [A Note About Git Commit Messages][messages]. Go
+ahead and read that, I'll wait here.
+
+![waiting](http://funnyasduck.net/wp-content/uploads/2012/12/funny-now-wait-cat-toilet-bathroom-bin-trash-garbage-pics.jpg)
 
 ## A Simple Form
+
+Now we're getting somewhere! We have a connection established, but we
+need to actually be able to pass 
+
 
 We want to create a form that allows us to submit new moves. We can do
 this by mixing HTML and our PHP variables. In the `main` HTML element,
@@ -545,3 +582,7 @@ results.
 
 [mamp]: http://www.mamp.info/en/index.html
 [wamp]: http://www.wampserver.com/en/
+[mysqli]: http://www.php.net/mysqli
+[serverglobal]: http://php.net/manual/en/reserved.variables.server.php
+[messages]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+
