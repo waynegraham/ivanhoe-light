@@ -31,15 +31,17 @@ but it can be whatever you want.
 
 ![phpMyAdmin new database](images/phpmyadmin-newdb.png)
 
-
-The username, by default, will be `root` with a
-blank password (unless you've changed that).
-
 ### Create a Table
 
-We need a table to store information about the moves. In your newly
+Now that there is a database to store our data, we need to create a 
+table to store information about the moves. In your newly
 created database, create a new table named `moves` by clicking on the
-**SQL** tab and pasting in the following:
+**SQL** tab:
+
+![phpMyAdmin sql tab](images/phpmyadmin-sql.png)
+
+Now you can paste the following and click the **Go** button.
+
 
 ```sql
 CREATE TABLE `moves` (
@@ -52,10 +54,27 @@ CREATE TABLE `moves` (
 );
 ```
 
-After you click on the **Go**, you should see a message along these
-lines:
+This is a SQL statement that creates a new table (*moves*) in the
+database (*ivanhoe*). It states that the table will have the following:
 
-  Your SQL query has been executed successfully
+* an numeric `id` field that will automatically increment when a new record is added
+* a required field named `name` that is a string, that can be no longer than 45 characters
+* a required field named `email` that is a string that can be up to 60
+  characters long
+* a required field named `move` that contains long text
+* a required field named `ipaddress` that is a string 
+* a "primary key" that you can use in other relational tables to refer
+  to this move based on the the `id` field
+
+If everything went correctly, you should see a message in phpMyAdmin
+saying everything executed successfully.
+
+![phpMyAdmin Success](images/phpmyadmin-sql-success.png)
+
+For the purposes of this tutorial, you can use the default **username** 
+of `root` with a blank password (unless you've changed that). However,
+**DO NOT** do this in a production environment!
+
 
 ## Application
 
