@@ -1,11 +1,12 @@
 # Introduction
-This tutorial will guide you through the process of creating a basic
-Ivanhoe game with PHP, using a MySQL database to store the moves, and
-make it look nice with some CSS. 
+This tutorial will guide you through the process of creating a very basic
+version of the Ivanhoe game using PHP, a MySQL database to store the moves, 
+as well as some basic styling to make it look nice with some CSS. 
 
 ## Step 1: The Setup
+
 Before starting, you should already have a database server set up
-(providwith MAMP/WAMP), and the following details:
+(provided with [MAMP][mamp]/[WAMP][wamp]), and the following details:
 
 * Hostname (*localhost* unless you've done something crazy)
 * Database name (you can create a new database on your MAMP/WAMP http
@@ -15,9 +16,23 @@ Before starting, you should already have a database server set up
 
 ### Create a Database
 
+If you are in MAMP, when you start the services up, you will see a link
+for **phpMyAdmin** on the top of the web browser page.
+
+![MAMP header](images/header.png)
+
+If you are on WAMP, you will see a link to **phpMyAdmin** on the main
+page.
+
 Click on the `phpMyAdmin` link on  your MAMP/WAMP installation. You
 should see a field to create a new database, appropriately named
-**Create new database**. The username, by default, will be `root` with a
+**Create new database**. Create a new database; I'm using **ivanhoe**,
+but it can be whatever you want.
+
+![phpMyAdmin new database](images/phpmyadmin-newdb.png)
+
+
+The username, by default, will be `root` with a
 blank password (unless you've changed that).
 
 ### Create a Table
@@ -489,3 +504,8 @@ results.
 * What are other features you could add?
 * How could you use the same data to produce a different visualization
   of the data? 
+
+
+
+[mamp]: http://www.mamp.info/en/index.html
+[wamp]: http://www.wampserver.com/en/
