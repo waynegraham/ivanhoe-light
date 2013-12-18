@@ -488,6 +488,11 @@ p.success {
 }
 ```
 
+I'll fake this a bit, but the feedback from posting the data in the to
+the database will look like this:
+
+![messages](images/messages.png)
+
 Awesome, now let's work on styling the moves. Basically what we want to
 do here is put the image on the left, with the content of the move on
 the right, styling the list items to not display the circle:
@@ -535,8 +540,12 @@ This styles the moves list to remove the circules, then styles the
 `meta` image and name, then sets the `move` content to `700px` to fill
 out the page.
 
-But that form is still a little gross looking. Let's fix that by making
-the text input larger, and adding some visual queues for which field the
+![css moves](images/css2.png)
+
+But that form is still a little gross looking, especially since the form
+doesn't look right since it's in the `moves` section. Let's fix the form 
+up a bit that by moving the form down, making the text input larger,
+ and adding some visual queues for which field the
 user is in. We'll use some browser-specfici extensions, as well as
 advanced selectors. 
 
@@ -612,7 +621,7 @@ textarea {
 }
 ```
 
-Looking good, but let's give the footer some love:
+Looking good, but for good measure, let's give the footer some love:
 
 ```css
 footer {
@@ -621,15 +630,27 @@ footer {
 }
 ```
 
-Hey, it looks like something now!
+![final design](images/css3.png)
 
-## Summary
+This is a good start, but there is a lot more you could do to improve
+this from a user's perspective. This is where your imagination,
+intention, and search for "good" design comes in to play.
+
+# Summary
 
 So this very brief tutorial worked through developing a simple PHP
 application that stores information in a database, and styling the
-results.
+results. However, this is just a start, and hand-waves over a lot of the
+complexities of building a web-based application for modern browsers.
+This *hopefully* help you understand how applications are typcially
+built, layering functionality to get something working, then
+progressively enhancing the functionality until you have fully
+implemented all the features you need.
 
-# Going Further
+## Going Further
+
+If you are really motivated, here are some prompts to help you take this
+application even further.
 
 * Make this design better with your own CSS
 * Add a WSYIWYG editor to the **Moves** field
@@ -640,8 +661,8 @@ results.
 * What are other features you could add?
 * How could you use the same data to produce a different visualization
   of the data? 
-
-
+* Are there any interactions that could be refined to make interacting
+  with the application easier?
 
 [mamp]: http://www.mamp.info/en/index.html
 [wamp]: http://www.wampserver.com/en/
