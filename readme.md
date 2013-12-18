@@ -208,7 +208,7 @@ connection.
 
 Let's add a couple more lines that we can use later. Remember that we
 have an entry in the database for the IP address for the user? We can
-get that from the [$_SERVER][successglobal] super global with the `REMOTE_ADDRESS` variable. We
+get that from the [$_SERVER][serverglobal] super global with the `REMOTE_ADDRESS` variable. We
 also also to keep track of the actual page we're on, which we can look
 up with the `PHP_SELF` variable.
 
@@ -315,7 +315,7 @@ shenanigans from crafty web users, we add the data as a [prepared
 statment][preparedstatement]. Within this statement, we do some further scrubbing of the
 strings to take out any HTML code, and properly escaping any special characters
 (including statements to delete data). But why? If you allow users to
-upload HTML (which includes JavaAcript), you open yourself up to many types of
+upload HTML (which includes JavaScript), you open yourself up to many types of
 <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">XSS attacks</a>.
 Trust me, you don't want that, so we scrub everything that goes in to
 the database.
@@ -368,7 +368,7 @@ that.
 
 ### Getting Fancy
 
-You know, one nice little feature to have would to actually use the
+You know, one nice little feature to have would be to actually use the
 Gravatar service to display an image next to the user's move. Gravatar
 uses a `hash` of the user's email address to return the image, so we'll
 need to write a function that can help us create the URL for the image.
@@ -517,7 +517,7 @@ the right, styling the list items to not display the circle:
   width: 85px;
   min-height: 110px;
   font-weight: bold;
-  float: left;<D-r>
+  float: left;
 }
 
 .meta img {
