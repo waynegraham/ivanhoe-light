@@ -98,7 +98,7 @@ $ git add .
 $ git commit -am "Initial files for Ivanhoe-light game"
 ```
 
-# Step 2: Some Code
+# Step 2: Adding Code
 
 Now that the database is set up, and a git repository exists for your
 code changes, it's time to start developing the application. I've broken
@@ -220,19 +220,17 @@ $ipaddress = ("$_SERVER[REMOTE_ADDR]"); // the user's IP
 
 Now is a good time to create a good commit in git. This is also a good
 time to read Tim Pope's [A Note About Git Commit Messages][messages]. Go
-ahead and read that, I'll wait here.
+ahead and read that, I'll wait here...
 
 ![waiting](http://funnyasduck.net/wp-content/uploads/2012/12/funny-now-wait-cat-toilet-bathroom-bin-trash-garbage-pics.jpg)
 
 ## A Simple Form
 
-Now we're getting somewhere! We have a connection established, but we
-need to actually be able to pass 
-
-
-We want to create a form that allows us to submit new moves. We can do
-this by mixing HTML and our PHP variables. In the `main` HTML element,
-we can create a form like this:
+We need a way to pass information to our application here. In HTML, you
+do this with a **form**. We want to create a form that contains all the
+data we need to store in the database (name, email address, move, and ip
+address), so we need to define those as HTML elements. In the `<main>`
+element (after the `<h1>` heading), add the following form:
 
 ```php
 <form action="<?php echo $self?>" method="post">
@@ -254,18 +252,37 @@ we can create a form like this:
 
   <input type="submit" value="Make Move" />
 </form>
-
 ```
 
-We now have a form that uses HTML 5 hints to ensure users fill out the
-form. However, if you fill out the forma and click the **Make Move** button,
-nothing happens. Let's fix that. Under the `$connection` variable, we
-need to check if the page has information sent to it via an HTTP POST. 
+The first thing here is that we create a form that posts to itself (the
+`index.php` script) using a `POST` HTTP method. Next wrap each field in
+an HTML `div` element, then create a label and input field for each
+field I am using. But what about the IP address? Since that gets set
+already, we don't actually have to use that in the form, so we can
+ignore that.
+
+I'm also using some fancy HTML5 attributes on the elements to get the 
+browser to actually help validate the data the user submits *before* 
+processing this by the script. This helps reduce the amout of code you
+need to write to ensure the data you are getting from the user matches
+what you actually expect!
+
+If you refresh the page, you should see a nice form on your page.
+
+![form](images/form.png)
+
+You can now fill out the form and submit it, but if you do, you'll
+notice that nothing actually happens. We need to add some code to the
+PHP section at the top of `index.php` to actually do something with the
+information that it receives through the form's `POST` method. 
+
+Under the `$ipaddress` variable you created, add the following block of
+code:
 
 ```php
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
   // check the parameters
-  if(empty($_POST['name'] || empty($_POST['email']) || empty($_POST['move']))){
+  if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['move'])){
     echo '<p class="error">You did not fill out the form.</p>';
   } else {
     if($stmt = $connection->prepare("INSERT INTO moves(name, email, move, ipaddress) VALUES (?, ?, ?, ?)")) {
@@ -285,28 +302,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ```
 
-The first line checks to see if the request is a POST (from a form),
-then checks to ensure that the `name`, `email`, and `move` were passed.
-If everything checks out, we create a prepared SQL statement to insert
-the data (to avoid hackers deleting all the data). The statement is
-built up using the variable passed in the form, but scrubbing the
-strings of HTML code, and properly escaping any special characters
-(including statements to delete data). If you allow users to add
-JavaScript (or other languages), you open yourself up to many types of
+
+There is a lot going on here. The first line checks to see if the request is a POST (from a form).
+If the request is made through a form, it then checks to ensure that the `name`, `email`, and `move`
+ were passed (and yes, there are ways to submit a form without a web
+browser, so you need to check it on the server too). If there's an
+error, the script will generate an error message for the user.
+
+
+If everything checks out, we need to get the data in to the database.
+For this, we use a language called SQL, and to ensure there aren't any
+shenanigans from crafty web users, we add the data as a [prepared
+statment][preparedstatement]. Within this statement, we do some further scrubbing of the
+strings to take out any HTML code, and properly escaping any special characters
+(including statements to delete data). But why? If you allow users to
+upload HTML (which includes JavaAcript), you open yourself up to many types of
 <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">XSS attacks</a>.
+Trust me, you don't want that, so we scrub everything that goes in to
+the database.
+
 
 ## Displaying Moves
-We can now submit data and save it, but we need to do something to
-actually view all the data that's there. We now need to write some more
-code to retrieve all the moves in the database and display them. Under
-the form processing section, add this:
+We can now submit data and save it in the database, but there's no
+actual data on the screen. We need to tell PHP to go and get all the
+data and then actually display it on the screen. We'll take care of retrieving the data first, then tell the script how to present the information to the end user. After the block of code that processes the form data, add the following:
+
 
 ```php
 $sql = "SELECT * FROM moves ORDER BY `id` DESC LIMIT 10";
 $moves = mysqli_query($connection, $sql);
 ```
 
-Now to display them, before the `form` element, add this:
+This bit of code creates an SQL statement that selects all of the fields
+from the last 10 records added to the moves table, then stores the
+results in an associative array named `$moves`.
+
+We want these to display before the form is listed to make users scroll
+past the moves. So, before the `form` element on the page, add this:
 
 ```php
 <div id="moves">
@@ -585,4 +617,5 @@ results.
 [mysqli]: http://www.php.net/mysqli
 [serverglobal]: http://php.net/manual/en/reserved.variables.server.php
 [messages]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+[preparedstatement]: http://en.wikipedia.org/wiki/Prepared_statement
 

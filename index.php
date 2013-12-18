@@ -21,7 +21,7 @@ $connection = mysqli_connect(
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
   // check the parameters
-  if(empty($_POST['name'] || empty($_POST['email']) || empty($_POST['move']))){
+  if(empty($_POST['name']) || empty($_POST['email']) || empty($_POST['move'])){
     echo '<p class="error">You did not fill out the form.</p>';
   } else {
     if($stmt = $connection->prepare("INSERT INTO moves(name, email, move, ipaddress) VALUES (?, ?, ?, ?)")) {
