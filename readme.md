@@ -75,7 +75,6 @@ For the purposes of this tutorial, you can use the default **username**
 of `root` with a blank password (unless you've changed that). However,
 **DO NOT** do this in a production environment!
 
-
 ## Application
 
 Ok, so we're done with phpMyAdmin. Now we need to actually create an
@@ -94,11 +93,27 @@ information (`db.php`). Assuming you are already in your MAMP/WAMP
 ```shell
 $ touch {index.php, style.css, db.php}
 $ git init
-$ git add .
+$ git add index.php styles.php
 $ git commit -am "Initial files for Ivanhoe-light game"
 ```
 
-# Step 2: Adding Code
+You'll notice that I didn't add the file `db.php` here. Since this
+contains senstive information (how to connecto to our database), we
+don't want to accidently push this to a public repository for the world
+to see. We can take this a step further and tell `git` to ignore this
+particular file, by adding it the the directory's `.gitignore` file.
+Open up your editor and create a new file named `.gitignore` with the
+following:
+
+```
+db.php
+```
+
+If, in the course of developing your application, you need other files
+to be ignored (like `.DS_Store` or `thumbs.db`), you can add additional
+entries to this file, following the [gitignore manual](http://git-scm.com/docs/gitignore). 
+
+# Step 2: Application Code 
 
 Now that the database is set up, and a git repository exists for your
 code changes, it's time to start developing the application. I've broken
@@ -133,6 +148,8 @@ If you refresh the web page now, you'll still now see anything. All
 we've done here is create a file that we can store the information about
 connecting to the database that we can use in the application. Now we
 can start building out the web page to start adding functionality.
+
+A
 
 ## Application Code
 
