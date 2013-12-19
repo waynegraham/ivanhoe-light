@@ -3,7 +3,25 @@ This tutorial will guide you through the process of creating a very basic
 version of the Ivanhoe game using PHP, a MySQL database to store the moves, 
 as well as some basic styling to make it look nice with some CSS. 
 
-## Step 1: The Setup
+## Phase 1: The Wireframe
+
+So the first phase for this project is to do some wireframing for the
+application. There are basically three components of the page I want to
+create:
+
+1. navigation to some sites
+1. a display of moves
+1. a method of collecting information from users
+
+With these requirements in mind, I take out a pen and make a quick
+sketch of what I'm currently thinking. 
+
+![wireframe](images/mockup.png)
+
+What I'm thinking here is that this will be a single-page application
+that will display 
+
+## Phase 2: The Setup
 
 Before starting, you should already have a database server set up
 (provided with [MAMP][mamp]/[WAMP][wamp]), and the following details:
@@ -113,7 +131,7 @@ If, in the course of developing your application, you need other files
 to be ignored (like `.DS_Store` or `thumbs.db`), you can add additional
 entries to this file, following the [gitignore manual](http://git-scm.com/docs/gitignore). 
 
-# Step 2: Application Code 
+# Phase 2: Application Code 
 
 Now that the database is set up, and a git repository exists for your
 code changes, it's time to start developing the application. I've broken
@@ -670,6 +688,8 @@ If you are really motivated, here are some prompts to help you take this
 application even further.
 
 * Make this design better with your own CSS
+* How might you think about providing all of the moves, without making
+  the page super long?
 * Add a WSYIWYG editor to the **Moves** field
 * Change the application to allow moves on a move
   * What needs to change in the design of the page?
