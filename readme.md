@@ -19,7 +19,8 @@ sketch of what I'm currently thinking.
 ![wireframe](images/mockup.jpg)
 
 What I'm thinking here is that this will be a single-page application
-that will display 
+that will display the moves on top of a form that users can fill out to
+create a move.
 
 ## Phase 2: The Setup
 
