@@ -16,7 +16,7 @@ create:
 With these requirements in mind, I take out a pen and make a quick
 sketch of what I'm currently thinking. 
 
-![wireframe](images/mockup.jpg)
+![wireframe](images/mockup.png)
 
 What I'm thinking here is that this will be a single-page application
 that will display the moves on top of a form that users can fill out to
