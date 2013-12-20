@@ -13,8 +13,8 @@ create:
 1. a display of moves
 1. a method of collecting information from users
 
-With these requirements in mind, I take out a pen and make a quick
-sketch of what I'm currently thinking. 
+With these requirements in mind, I quickly mock up something to help
+convey what I'm thinking.
 
 ![wireframe](images/mockup.png)
 
